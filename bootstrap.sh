@@ -7,10 +7,7 @@
 #
 
 # Absolute path to this script. /home/user/bin/foo.sh
-SCRIPT_PATH=$(readlink -f $0)
-# Directory of this script
-SCRIPT_DIR=$(dirname $SCRIPT_PATH)
-
+SCRIPT_DIR=$(dirname "$(readlink "$0" || echo "$(echo "$0" | sed -e 's,\\,/,g')")")
 export EMACS_INIT_FILE=$SCRIPT_DIR/init.el
 
 emacs -q -l $EMACS_INIT_FILE $@
